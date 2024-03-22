@@ -1,0 +1,24 @@
+rrrbot:
+  # Publish joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+  # Position Controllers ---------------------------------------
+  joint1_controller:
+    type: effort_controllers/JointPositionController
+    publish_rate: 50
+    joint: base_to_link1 
+    pid: {p: 200.0, i: 0.1, d: 10.0}
+  joint2_controller:
+    type: effort_controllers/JointPositionController
+    publish_rate: 50
+    joint: link1_to_link2 
+    pid: {p: 200.0, i: 0.1, d: 10.0}
+  joint3_controller:
+    type: effort_controllers/JointPositionController
+    publish_rate: 50
+    joint: link2_to_link3 
+    pid: {p: 200.0, i: 0.1, d: 10.0}
+
+

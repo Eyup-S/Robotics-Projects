@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<robot name="person">
+  
+    <link name="base_link">
+        <visual>
+            <origin rpy="0.0 0.0 0.0" xyz="0 0 0.85" />
+            <geometry>
+          		<cylinder radius="0.25" length="1.70"/>
+            </geometry>
+        </visual>
+        
+        <collision>
+            <origin rpy="0.0 0.0 0.0" xyz="0 0 0.85" />
+            <geometry>
+          		<cylinder radius="0.25" length="1.70"/>
+            </geometry>
+        </collision>
+        
+		<inertial>
+            <mass value="70" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    
+  <gazebo reference="base_link">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+    
+</robot>

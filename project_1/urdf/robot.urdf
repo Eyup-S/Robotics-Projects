@@ -1,0 +1,242 @@
+<?xml version="1.0" ?>
+  <robot name="PPP_Robot">
+
+    <rosparam file="$(find project_1)/config/config.yaml" command="load"/>
+
+    <!-- Base link -->
+    <link name="base_link">
+      <inertial>
+        <!-- <mass value="4"/>
+        <inertia ixx="0.4" ixy="0" ixz="0" iyy="0.4" iyz="0" izz="0.01"/> -->
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="20"/>
+        <inertia ixx="6.667" ixy="0" ixz="0" iyy="6.667" iyz="0" izz="13.333"/>
+      </inertial>
+      <visual>
+        <geometry>
+          <box size="2 2 0.05"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="2 2 0.05"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Fixed link joint -->
+    <joint name="base_joint" type="fixed">
+        <origin xyz="0 0 0.5" rpy="0 0 0"/>  <!-- Adjust the position and orientation as necessary -->
+        <parent link="base_link"/>
+        <child link="link1"/>
+    </joint>
+
+    <!-- First prismatic joint -->
+    <joint name="z_axis" type="prismatic">
+      <parent link="link1"/>
+      <child link="movable_link1"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-0.3" upper="0.5" effort="10" velocity="1"/>
+      <origin xyz="0 0 0" rpy="0 0 1.5708"/>
+      <pid>
+        <rosparam_node>/PPP_Robot/z_axis_controller/pid</rosparam_node>
+      </pid> 
+    </joint>
+
+    <!-- Second prismatic joint -->
+    <joint name="y_axis" type="prismatic">
+      <parent link="link2"/>
+      <child link="movable_link2"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="0" upper="1" effort="10" velocity="1"/>
+      <origin xyz="0 0 -0.5" rpy="0 0 1.5708"/> 
+      <pid>
+        <rosparam_node>/PPP_Robot/y_axis_controller/pid</rosparam_node>
+      </pid>
+    </joint>
+
+    <!-- Third prismatic joint -->
+    <joint name="x_axis" type="prismatic">
+      <parent link="link3"/>
+      <child link="movable_link3"/>
+      <axis xyz="0 0 -1"/>
+      <limit lower="0" upper="1" effort="10" velocity="1"/>
+      <origin xyz="0 0 0.5" rpy="0 0 1.5708"/>
+      <pid>
+        <rosparam_node>/PPP_Robot/x_axis_controller/pid</rosparam_node>
+      </pid> 
+    </joint>
+
+    <link name="movable_link1">
+      <visual>
+        <geometry>
+          <box size="0.1 0.1 0.05"/>
+        </geometry>
+        <material name="yellow">
+          <color rgba="1 1 0 1"/>
+        </material>
+      </visual>
+    </link>
+
+    <link name="movable_link2">
+      <visual>
+        <geometry>
+          <box size="0.1 0.1 0.05"/>
+        </geometry>
+        <material name="green">
+          <color rgba="0 1 0 1"/>
+        </material>
+      </visual>
+    </link>
+
+    <link name="movable_link3">
+      <visual>
+        <geometry>
+          <box size="0.05 0.05 0.05"/>
+        </geometry>
+        <material name="blue">
+          <color rgba="1 0 0 0"/>
+        </material>
+      </visual>
+    </link>
+	
+	<joint name="second_fixed_joint" type="fixed">
+        <origin xyz="0.5 0 0" rpy="0 1.5708 0"/>  <!-- Adjust the position and orientation as necessary -->
+        <parent link="movable_link1"/>
+        <child link="link2"/>
+    </joint>
+
+	<joint name="third_fixed_joint" type="fixed">
+        <origin xyz="-0.5 0 0" rpy="0 1.5708 0"/>  <!-- Adjust the position and orientation as necessary -->
+        <parent link="movable_link2"/>
+        <child link="link3"/>
+    </joint>
+
+
+    <!-- Link attached to first movable link joint -->
+    <link name="link1">
+      <inertial>
+        <mass value="0.1"/>
+        <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+      </inertial>
+      <visual>
+        <geometry>
+          <box size="0.1 0.1 1"/>
+        </geometry>
+        <material name="yellow">
+          <color rgba="1 1 0 1"/>
+        </material>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="0.1 0.1 1"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Link attached to second joint -->
+    <link name="link2">
+      <inertial>
+        <mass value="0.1"/>
+        <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+      </inertial>
+      <visual>
+        <geometry>
+          <box size="0.1 0.1 1"/>
+        </geometry>
+        <material name="green">
+          <color rgba="0 1 0 1"/>
+        </material>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="0.1 0.1 1"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Link attached to third joint -->
+    <link name="link3">
+      <inertial>
+        <mass value="0.1"/>
+        <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+      </inertial>
+      <visual>
+        <geometry>
+          <box size="0.1 0.1 1.1"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="0.1 0.1 1.1"/>
+        </geometry>
+      </collision>
+	</link>
+
+    <!-- Tip link -->
+    <link name="tip_link">
+      <inertial>
+        <mass value="0.5"/>
+        <inertia ixx="0.00005" ixy="0" ixz="0" iyy="0.00005" iyz="0" izz="0.00005"/>
+      </inertial>
+      <visual>
+        <geometry>
+          <box size="0.1 0.1 0.1"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="0.2 0.1 0.1"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Joint connecting the third link to the tip -->
+    <joint name="tip_joint" type="fixed">
+      <parent link="movable_link3"/>
+      <child link="tip_link"/>
+      <origin xyz="-0.1 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <transmission name="tran_z_axis">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="z_axis">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="motor_z_axis">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="tran_y_axis">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="y_axis">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="motor_y_axis">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="tran_x_axis">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="x_axis">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="motor_x_axis">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+    
+    <gazebo>
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <robotNamespace>/PPP_Robot</robotNamespace>
+       <controlPeriod>0.001</controlPeriod>
+      </plugin>
+    </gazebo>
+
+
+  </robot>

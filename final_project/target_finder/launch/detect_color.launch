@@ -1,0 +1,5 @@
+<launch>
+	<node name="detect_color" pkg="target_finder" output="screen" type="detect_color" >
+                <param name="camera_topic" type="string" value="/camera_turtlebot/rgb/image_raw" />
+	</node>
+</launch>

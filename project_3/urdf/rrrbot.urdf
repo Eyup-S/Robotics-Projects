@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Revolute-Prismatic Manipulator -->
+
+<robot name="rrrbot">
+
+    <link name="world" />
+    
+    
+    <joint name="fixed" type="fixed">
+        <parent link="world" />
+        <child link="base_link" />
+    </joint>
+    
+    
+    <link name="base_link">
+        <visual>
+            <origin rpy="0.0 0.0 0.0" xyz="0 0 0.25" />
+            <geometry>
+          		<cylinder radius="0.075" length="0.5"/>
+            </geometry>
+            <material name="red">
+                <color rgba="0.8 0 0 1" />
+            </material>
+        </visual>
+        
+        <collision>
+            <origin rpy="0.0 0.0 0.0" xyz="0 0 0.25" />
+            <geometry>
+          		<cylinder radius="0.075" length="0.5"/>
+            </geometry>
+        </collision>
+        
+		<inertial>
+            <mass value="0.1" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    
+    
+    <joint name="base_to_link1" type="revolute">
+        <origin rpy="0 0 0" xyz="0 0 0.5" />
+        <parent link="base_link" />
+        <child link="link1" />
+        <axis xyz="0 0 1" />
+        <limit effort="1000.0" lower="-3.14159265359" upper="3.14159265359" velocity="0.1" />
+    </joint>
+    
+    
+    <link name="link1">
+        <visual>
+            <origin rpy="0.0 0.0 0.0" xyz="0 0 0.25" />
+            <geometry>
+                <cylinder radius="0.05" length="0.5"/>
+            </geometry>
+            <material name="orange">
+                <color rgba="1.0 0.423529411765 0.0392156862745 1.0" />
+            </material>
+        </visual>
+        
+        <collision>
+            <origin rpy="0.0 0.0 0.0" xyz="0 0 0.25" />
+            <geometry>
+                <cylinder radius="0.05" length="0.5"/>
+            </geometry>
+        </collision>
+        
+		<inertial>
+            <mass value="0.1" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    
+        <link name="link1_rotational_visual">
+        <visual>
+            <origin rpy="0.0 0.0 0.0" xyz="0 0 0.1" />
+            <geometry>
+                <cylinder radius="0.07" length="0.2"/>
+            </geometry>
+            <material name="green">
+                <color rgba="0 0.8 0 1" />
+            </material>
+        </visual>
+        
+        <collision>
+				<origin rpy="0.0 0.0 0.0" xyz="0 0 0.1" />
+            <geometry>
+                <cylinder radius="0.07" length="0.2"/>
+            </geometry>
+        </collision>
+        
+		<inertial>
+            <mass value="0.1" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+     
+    <joint name="link1_to_rotational" type="fixed">
+        <origin rpy="0 1.57079632679 0" xyz="-0.05 0 0.5" />
+        <parent link="link1" />
+        <child link="link1_rotational_visual" />
+    </joint>
+   
+    <joint name="link1_to_link2" type="revolute">
+        <origin rpy="0 0 0" xyz="0.1 0 0.5" />
+        <parent link="link1" />
+        <child link="link2" />
+        <axis xyz="1 0 0" />
+        <limit effort="1000.0" lower="0" upper="6.28318530718" velocity="0.1" />
+    </joint>
+    
+    
+    <link name="link2">
+        <visual>
+            <origin rpy="0.0 0.0 0.0" xyz="0 0 0.25" />
+            <geometry>
+                <cylinder radius="0.05" length="0.5"/>
+            </geometry>
+            <material name="orange">
+                <color rgba="1.0 0.423529411765 0.0392156862745 1.0" />
+            </material>
+        </visual>
+        
+        <collision>
+            <origin rpy="0.0 0.0 0.0" xyz="0 0 0.25" />
+            <geometry>
+                <cylinder radius="0.05" length="0.5"/>
+            </geometry>
+        </collision>
+        
+		<inertial>
+            <mass value="0.1" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    
+   
+   <link name="link2_rotational_visual">
+        <visual>
+            <origin rpy="0.0 0 0.0" xyz="0 0 0.1" />
+            <geometry>
+                <cylinder radius="0.07" length="0.2"/>
+            </geometry>
+            <material name="green">
+                <color rgba="0 0.8 0 1" />
+            </material>
+        </visual>
+        
+        <collision>
+            <origin rpy="0.0 0 0.0" xyz="0 0 0.1" />
+            <geometry>
+                <cylinder radius="0.07" length="0.2"/>
+            </geometry>
+        </collision>
+        
+		<inertial>
+            <mass value="0.1" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    
+    
+    <joint name="link2_to_rotational" type="fixed">
+        <origin rpy="0 1.57079632679 0" xyz="-0.15 0 0.5" />
+        <parent link="link2" />
+        <child link="link2_rotational_visual" />
+    </joint>
+    
+
+    <joint name="link2_to_link3" type="revolute">
+        <origin rpy="0 0 0" xyz="-0.1 0 0.5" />
+        <parent link="link2" />
+        <child link="link3" />
+        <axis xyz="1.0 0.0 0.0"/>
+        <limit effort="1000.0" lower="0" upper="6.28318530718" velocity="0.1" />
+    </joint>
+    
+    
+    <link name="link3">
+        <visual>
+            <origin rpy="0.0 0.0 0.0" xyz="0 0 0.25" />
+            <geometry>
+          		<cylinder radius="0.05" length="0.5"/>
+          	</geometry>
+            <material name="orange">
+                <color rgba="1.0 0.423529411765 0.0392156862745 1.0" />
+            </material>
+        </visual>
+        
+        <collision>
+            <origin rpy="0.0 0.0 0.0" xyz="0 0 0.25" />
+            <geometry>
+          		<cylinder radius="0.05" length="0.5"/>
+          	</geometry>
+        </collision>
+        
+		<inertial>
+            <mass value="0.1" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    
+    
+    <joint name="link3_to_tip" type="fixed">
+        <origin rpy="0 0 0" xyz="0 0 0.5" />
+        <parent link="link3" />
+        <child link="tip" />
+    </joint>
+  
+  
+    <gazebo reference="link3_to_tip">
+        <disableFixedJointLumping>true</disableFixedJointLumping> 
+        <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
+    
+       
+    <link name="tip">
+        <visual>
+            <origin rpy="0.0 0.0 0.0" xyz="0 0 0.01" />
+            <geometry>
+                <box size="0.02 0.02 0.02" />
+          	</geometry>
+            <material name="red">
+                <color rgba="0.8 0 0 1" />
+            </material>
+        </visual>
+        
+        <collision>
+            <origin rpy="0.0 0.0 0.0" xyz="0 0 0.51" />
+            <geometry>
+                <box size="0.02 0.02 0.02" />
+          	</geometry>
+        </collision>
+        
+		<inertial>
+            <mass value="0.1" />
+            <inertia ixx="0.03" iyy="0.03" izz="0.03" ixy="0.0" ixz="0.0" iyz="0.0" />
+        </inertial>
+    </link>
+    
+  
+    
+    
+     <transmission name="trans_base_to_link1">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="base_to_link1">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="base_to_link1_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+
+    <transmission name="trans_link1_to_link2">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="link1_to_link2">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="link1_to_link2_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+    
+   <transmission name="trans_link2_to_link3">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="link2_to_link3">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="link2_to_link3_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/rrrbot</robotNamespace>
+        </plugin>
+    </gazebo>
+    
+</robot>
